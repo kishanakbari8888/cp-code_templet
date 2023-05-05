@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////
+module dec3to8_withE( D, E, A);
+     input [2:0] A;
+     input E;
+     output wire[7:0] D;
+           
+     wire [1:0] Sel;
+          dec2to4_withE inst0(D[3:0], A[1:0],sel[0]);
+          dec2to4_withE inst1(D[7:4], A[1:0], sel[1]);
+          dec1to2_withE inst2(sel,A[2:2], E);
+endmodule
+///////////////////////////////////////////////////
+////////////////////////////////////////////////////
+module dec2to4_withE(D, Sel, E);
+     input [1:0] Sel;
+     input E;
+     output wire[3:0] D;
+
+     assign D[0] = ~Sel[1]&~Sel[0]&E;
+     assign D[1] = ~Sel[1]&Sel[0]&E;
+     assign D[2] = Sel[1]&~Sel[0]&E;
+     assign D[3] = Sel[1]&Sel[0]&E;     
+endmodule
+///////////////////////////////////////////////////
+////////////////////////////////////////////////////
+module dec1to2_withE(D, Sel, E);
+     input Sel;
+     input E;
+     output wire [1:0] D;
+
+     assign D[0] = (E==1'b0)? 1'b0: ~Sel;
+     assign D[1] = (E==1'b0)? 1'b0: Sel;
+endmodule
+///////////////////////////////////////////////////
+
+
+https://www.edaplayground.com/x/FEYH
