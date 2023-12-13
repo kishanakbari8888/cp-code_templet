@@ -137,3 +137,7 @@ int32_t main()
 	return 0;
 }
 
+
+// 8jQyHL6HK2W1_pzgwcjVug
+// postgresql://kishan_akbari:8jQyHL6HK2W1_pzgwcjVug@dinosaur-12066.7tt.cockroachlabs.cloud:26257/Playpower?sslmode=verify-full
+

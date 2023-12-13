@@ -15,11 +15,15 @@ using namespace std;
 #define sum(a) accumulate(a.begin(), a.end(), (int)0)
 #define ff first
 #define ss second
-#define vi vector<int> 
 #define pi pair<int,int>
 int M = 998244353;
 int mxroot = 3037000499;
 vector<int> hash = {146527, 19260817, 91815541};
+template<class T> using min_pq = priority_queue<T, vector<T>, greater<T>>;
+
+
+// vector<int> dir = {-1, 0, 1, 0, -1};
+
 
 // cout.precision(20);
 
@@ -123,30 +127,30 @@ public:
 };
 
 
-class dsu{
+// class dsu{
 
-public:
-    vector<int> v;
-    dsu(int n)
-    {
-        v = vector<int> (n+1,0);
-        for (int i = 0; i < n+1; ++i)
-            v[i]=i;
-    }
+// public:
+//     vector<int> dsu;
+//     dsu(int n)
+//     {
+//         dsu = vector<int> (n+1,0);
+//         for (int i = 0; i < n+1; ++i)
+//             dsu[i]=i;
+//     }
 
-    int root(int i)
-    {
-        if(i==v[i])
-            return i;
-        return v[i]=root(v[i]);
-    }
+//     int root(int i)
+//     {
+//         if(i==dsu[i])
+//             return i;
+//         return dsu[i]=root(dsu[i]);
+//     }
 
-    void up(int ix,int ixx)
-    {
-        v[root(ix)]=root(ixx);
-    }
+//     void up(int ix,int ixx)
+//     {
+//         dsu[root(ix)]=root(ixx);
+//     }
 
-};
+// };
 
 // vector<bool> b(n);
 // vector<int> st;
@@ -197,29 +201,29 @@ public:
 
 class BIT{
 public:
-    vector<ll> v;
-    BIT(ll n){
-        v = vector<ll>(n+10,0);
+    vector<long long> v;
+    BIT(long long n){
+        v = vector<long long>(n+10,0);
     };
 
-    void up(ll ix,ll vul)
+    void up(long long ix,long long vul)
     {
-        for(ix++; ix<(ll)v.size(); ix+=(ix&-ix))
+        for(ix++; ix<(long long)v.size(); ix+=(ix&-ix))
             v[ix]=(v[ix]+vul);
     }
 
-    ll presum(ll ix)
+    long long presum(long long ix)
     {
-        ll ans =  0;
+        long long ans =  0;
         for(ix++; ix>0; ix-=(ix&-ix))
             ans=(ans+v[ix]);
         return ans;
     }
 
-    ll upmax(ll ix,ll val)
+    long long upmax(long long ix,long long val)
     {
-        ll mx = -1e18;
-        for(ix++; ix<(ll)v.size(); ix+=(ix&-ix))
+        long long mx = -1e18;
+        for(ix++; ix<(long long)v.size(); ix+=(ix&-ix))
             mx = max(mx,v[ix]);
 
         return mx;
@@ -349,9 +353,58 @@ public:
 
 };
 
+class segment_tree{
+public:
+    vector<long long> t;
+    int n;
+    segment_tree(int x){
+        n = x;
+        t.resize(x*2, 0);
+        for(auto & i : t) i = INT_MAX;
+    }
+    void update(int pos, long long val){
+        for(t[pos+=n] = val; pos > 1; pos >>= 1) t[pos/2] = min(t[pos],t[pos^1]);
+    }
+    int query(int a, int b){
+        long long res = INT_MAX;
+        for(int l = a+n, r = b+n+1; l < r; l >>= 1, r >>= 1){
+            if(l & 1) res = min(res, t[l++]);
+            if(r & 1) res = min(res, t[--r]);
+        }
+        return res;
+    }
+};
 
 
-
+// vector<vector<int>> dis(n,vector<int>(1e9));
+// vector<vector<int>> pre(n,vector<int>(0));
+// function<void(int)> bfs = [&](int s)
+// {
+//     priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q; 
+//     dis[s][s] = pri[s];
+//     q.push({pri[s],s});
+//     pre[s][s] = -1
+    
+//     while(q.size())
+//     {
+//         pair<int,int> p = q.top();
+//         q.pop();
+        
+//         if(p.first!=dis[s][p.second])
+//             continue;
+        
+//         for(int x:v[p.second])
+//         {
+//             if(dis[s][x]>p.first+pri[x])
+//             {
+//                 pre[s][x] = p.second;
+//                 dis[s] = p.first+pri[x];
+//                 q.push({dis[x],x});
+//             }
+//         }
+//     }
+    
+// };
 
 
 int fabbo(int a)
@@ -436,9 +489,9 @@ int fabbo(int a)
 
 int32_t main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout<<setprecision(0)<<fixed;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout<<setprecision(0)<<fixed;
 
 
 
@@ -468,7 +521,7 @@ int32_t main()
         
         
 
-	return 0;
+    return 0;
 }
 
 
@@ -755,3 +808,209 @@ int32_t main()
 
 // if(x>1)
 //     tem.insert(x);
+
+
+
+
+
+
+
+
+
+// struct TrieNode {
+//     TrieNode *next[26] = {};
+//     int index = -1;
+//     vector<int> palindromeIndexes;
+// };
+
+// class Solution {
+//     TrieNode roo1;
+//     void add(string &s, int i)
+//     {
+//         auto r1 = &roo1;
+//         for (int j = s.size() - 1; j >= 0; --j) {
+//             if (isPalindrome(s, 0, j)) r1->palindromeIndexes.push_back(i); 
+//             int c = s[j] - 'a';
+//             if (!r1->next[c]) r1->next[c] = new TrieNode();
+//             r1 = r1->next[c];
+//         }
+//         r1->index = i;
+//         r1->palindromeIndexes.push_back(i); 
+//     }
+    
+//     bool isPalindrome(string &s, int i, int j) {
+//         while (i < j && s[i] == s[j]) ++i, --j;
+//         return i >= j;
+//     }
+
+
+// };
+
+
+
+// class seg{
+// public:
+//     int n;
+//     vector<int> segtree,lazy;
+//     seg(int nn)
+//     {
+//         n = nn;
+//         segtree = vector<int>(4*n,0);
+//         lazy = vector<int>(4*n,0);
+//     }
+
+ 
+//     void chz(int s,int e,int ps,int pe,int val,int po)
+//     {
+//         if(e<s)
+//             return ;
+ 
+//         if(lazy[po]!=0)
+//         {
+//             segtree[po] += lazy[po];
+//             segtree[po]%=2;
+//             if(s!=e)
+//             {
+//                 lazy[2*po + 1] += lazy[po];
+//                 lazy[2*po + 1] %=2;
+
+//                 lazy[2*po + 2] += lazy[po];
+//                 lazy[2*po + 2] %=2;
+//             }
+ 
+//             lazy[po] = 0;
+//         }
+ 
+ 
+//         if(e<ps || s>pe){
+//             return ;
+//         }
+ 
+//         if(ps<=s && e<=pe)  
+//         {
+//             segtree[po] += val;
+//             segtree[po]%=2;
+//             if(s!=e)
+//             {
+//                 lazy[2*po+1] += val;
+//                 lazy[2*po+2] += val;
+//                 lazy[2*po + 2] %=2;
+//                 lazy[2*po + 1] %=2;
+//             }
+ 
+//             return ;
+//         }
+ 
+//         int mid = (s+e)/2;
+ 
+//         chz(s,mid,ps,pe,val,2*po+1);
+//         chz(mid+1,e,ps,pe,val,2*po+2);
+//         segtree[po] = max(segtree[2*po+1]%2,segtree[2*po+2]%2);
+//     }
+ 
+ 
+//     int getmax(int s,int e,int ps,int pe,int po)
+//     {   
+//         if(lazy[po]!=0)
+//         {
+//             segtree[po] += lazy[po];
+//             segtree[po]%=2;
+//             if(s!=e)
+//             {
+//                 lazy[2*po + 1] += lazy[po];
+//                 lazy[2*po + 2] += lazy[po];
+//                 lazy[2*po + 2] %=2;
+//                 lazy[2*po + 1] %=2;
+     
+//             }
+//             lazy[po] = 0;
+//         }
+ 
+ 
+//         if(ps<=s && e<=pe){
+//             return segtree[po]%2;
+//         }
+//         if(e<ps || s>pe)
+//             return (int)(0);
+ 
+//         int mid = (s+e)/2;
+ 
+//         return max(getmax(s,mid,ps,pe,2*po+1),getmax(mid+1,e,ps,pe,2*po+2))%2;
+ 
+//     };
+ 
+
+
+// };
+
+
+
+
+
+
+//     #include <iostream>
+// #include <thread>
+// #include <mutex>
+
+// using namespace std;
+
+// int myAmount = 0;
+// mutex m; 
+
+// void addMoney() {
+//     m.lock();
+//     ++myAmount;
+//     cout<<"cdcdc"<<endl;
+//     m.unlock();
+// }
+
+// int main() {
+//     thread tl(addMoney) ;
+//     thread t2(addMoney) ;
+    
+//     tl.detach();
+//     for(int i=0; i<1e9; ++i);;
+    
+//     // t2.join();
+    
+//     // t2.detach();
+//     cout<<myAmount<<endl;
+//     return 0;
+// }
+
+
+
+ // bool isSubstring(string check, string b, int hash_val) {
+ //        int curr_hash = 0;
+ //        int n = check.length();
+ //        int m = b.length();
+ //        long long  mul = 1;
+ //        for(int i = 0 ; i < b.length(); i++) {
+ //            curr_hash = (curr_hash + ((check[i] - 'a'+1)*mul)%MOD)%MOD;
+ //            mul = (mul*11)%MOD;
+ //        }
+ //        mul /= 11;
+ //        if(curr_hash == hash_val) return 1;
+ //        for(int i = 1; i <= n-m; i++) {
+ //            curr_hash -= (check[i-1] - 'a'+1);
+ //            curr_hash /= 11;
+ //            curr_hash = (curr_hash + ((check[i+m-1] - 'a'+1)*mul)%MOD)%MOD;
+ //            if(curr_hash == hash_val)
+ //                return 1;
+ //        }
+ //        return 0;
+ //    }
+
+
+
+// long long my_sqrt(long long a)
+// {
+//     long long l=0,r=5000000001;
+//     while(r-l>1)
+//     {
+//         long long mid=(l+r)/2;
+//         if(1ll*mid*mid<=a)l=mid;
+//         else r=mid;
+//     }
+//     return l;
+// }

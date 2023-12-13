@@ -55,10 +55,10 @@ int stoii(string s)
 }
 
 
-int fpower(int a,int n)
+int fpower(long long a,long long n)
 {
-    int M = 1e9+7;
-    int p=1;
+    long long M = 1e9+7;
+    long long p=1;
     while(n>0)
     {
         if(n&1)
@@ -69,7 +69,8 @@ int fpower(int a,int n)
     return p;
 }
 
-int nfoc(int n)
+
+long long nfoc(int n)
 {
     int ans = 1;
     for (int i = 0; i < n; ++i)
@@ -78,13 +79,13 @@ int nfoc(int n)
     return ans;
 }
 
-int ncr(int n,int r)
-{
-    if(n-r<0)
-        return 0;
-    int ans = ((nfoc(n)*fpower(nfoc(r),M-2)%M)%M*fpower(nfoc(n-r),M-2)%M)%M;
-    return ans;
-}
+    int ncr(int n,int r)
+    {
+        if(n-r<0)
+            return 0;
+        int ans = ((fe(n)*fpower(fe(r),M-2)%M)%M*fpower(fe(n-r),M-2)%M)%M;
+        return ans;
+    }
 
 
 int Ufun(vector<int> &v,int t)

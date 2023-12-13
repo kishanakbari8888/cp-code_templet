@@ -41,12 +41,23 @@ int32_t main()
     // {
     //     int
     // }
-
-    cout<<10000<<endl;
-    for(int i=0; i<1e4; ++i)
+    // cout<<"[";
+    int n = rand()%10000;
+    int m = rand()%10+1;
+    cout<<n<<" ";
+    cout<<n<<" "<<m<<endl;
+    for (int i = 0; i < n; ++i)
     {
-        cout<<rand()%((int)1e9)+1<<" "<<rand()%(int)1e12+1<<endl;;
+        // cout<<'"';
+        for(int j=0; j<m; ++j)
+            cout<<(rand()%100)<<" ";
+        cout<<endl;
+    
+        // cout<<'"';
+        // cout<<",";
     }
+
+    // cout<<"]";
     
     
 
