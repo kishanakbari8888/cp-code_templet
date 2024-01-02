@@ -29,14 +29,13 @@ template<class T> using min_pq = priority_queue<T, vector<T>, greater<T>>;
 
 
 // using namespace __gnu_pbds;
- 
 // typedef
 // tree< pair<int,int>, null_type, less<pair<int,int>>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 // *ss.find_by_order(q[i].ff.ss-1);
 
 
 // ll crossproduct(point p,point q,point o){
-//     //opからoqを見る向き
+//    
 //     ll x1=p[0]-o[0];
 //     ll y1=p[1]-o[1];
 //     ll x2=q[0]-o[0];
@@ -44,7 +43,7 @@ template<class T> using min_pq = priority_queue<T, vector<T>, greater<T>>;
 //     return x1*y2-y1*x2;
 // }
 // ll innerproduct(point p,point q,point o){
-//     //opとoq
+//     
 //     ll x1=p[0]-o[0];
 //     ll y1=p[1]-o[1];
 //     ll x2=q[0]-o[0];
@@ -220,14 +219,7 @@ public:
         return ans;
     }
 
-    long long upmax(long long ix,long long val)
-    {
-        long long mx = -1e18;
-        for(ix++; ix<(long long)v.size(); ix+=(ix&-ix))
-            mx = max(mx,v[ix]);
 
-        return mx;
-    }
 };
 
 class Lowertcommmonancestor{
@@ -682,7 +674,7 @@ int32_t main()
 // }
 
 
-// vector<int> kpm(string s)
+// vector<int> kmp(string s)
 // {
 //     vector<int> v(s.size());
 //     int i = 1;

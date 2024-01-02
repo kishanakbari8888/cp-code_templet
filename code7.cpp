@@ -88,10 +88,10 @@ public:
 
 class ad:public ac{
 public:
-    // ad()
-    // {
-    //     cout<<"ad"<<endl;
-    // }
+    ad()
+    {
+        cout<<"ad"<<endl;
+    }
     int bb = 10;
 };
 
@@ -119,26 +119,53 @@ public:
 
 
 
-// class sig{
-// private:
-//     sig()
-//     {
+class sig{
+private:
+    sig()
+    {
 
-//     }
-// public:
-//     static sig *s;
-//     static sig* getsig(){
-//         if(s==NULL)
-//             s = new sig(); 
-//         return s;
-//     }
+    }
+public:
+    static sig *s;
+    static sig* getsig(){
+        if(s==NULL)
+            s = new sig(); 
+        return s;
+    }
+};
 
-// };
-
-// sig *sig ::s = NULL;
-    // // sig *s = sig::getsig();
+sig *sig ::s = NULL;
+// sig *s = sig::getsig();
 
 
+
+class link{
+public:
+    int val = 11;
+    link *next;
+    link(int d)
+    {
+        val = d;
+        next = NULL;
+    }
+private:
+
+protected:
+};
+
+
+
+class temp{
+
+public:
+    static int data;
+
+    static int getdata()
+    {
+        return 10ll;
+    }
+
+};
 
 
 int32_t main()
@@ -149,15 +176,19 @@ int32_t main()
     cout<<setprecision(10)<<fixed;
 
     // SubClass s(10,100);
-    // Derived d;
-    // Base *b = &d;
-    // cout<<b->fun()<<endl; // 10
+    Derived d;
+    Base *b = &d;
+    cout<<b->fun()<<endl; // 10
+    cout<<d.fun()<<endl;
     // cout<<b->y<<endl; // error
 
 
-    // cout<<"10";
+        
+    // ad a;
+    // cout<<a.get();
 
 
+    cout<<temp::getdata()<<endl;
     return 0;
     
 }
